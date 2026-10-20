@@ -1,0 +1,33 @@
+# VS Code REST Client / JetBrains HTTP client
+@host = http://localhost:3000
+@id = PASTE_TODO_ID
+
+### health
+GET {{host}}/health
+
+### create
+POST {{host}}/todos
+Content-Type: application/json
+
+{ "title": "Write the API" }
+
+### list (first page)
+GET {{host}}/todos?limit=5
+
+### list (next page: cursor = nextCursor from previous response) + done filter
+GET {{host}}/todos?limit=5&cursor={{id}}&done=false
+
+### get by id
+GET {{host}}/todos/{{id}}
+
+### update
+PATCH {{host}}/todos/{{id}}
+Content-Type: application/json
+
+{ "done": true }
+
+### delete (204)
+DELETE {{host}}/todos/{{id}}
+
+### invalid id -> 400
+GET {{host}}/todos/not-an-id
